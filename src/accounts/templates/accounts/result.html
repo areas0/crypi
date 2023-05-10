@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Quel est le meilleur éditeur ?</h2>
+  <form id="result-form" method="post" action={% url 'result' %}>
+      {% csrf_token %}
+      <button id="result-compute" type="submit">Get results !</button>
+  </form>
+
+  {% if result %}
+    <p>Result: {{ result }}</p>
+  {% endif %}
+{% endblock %}

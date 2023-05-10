@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Quel est le meilleur éditeur ?</h2>
+  <form id="vote-form" method="post" action={% url 'vote' %}>
+      {% csrf_token %}
+      <input type="radio" name="editor" id="vim" value="vim">
+      <label for="vim">Vim</label>
+
+      <input type="radio" name="editor" id="emacs" value="emacs">
+      <label for="emacs">Emacs</label>
+
+      <input type="radio" name="editor" id="vscode" value="vscode">
+      <label for="editor">VSCode</label>
+
+      <input type="radio" name="editor" id="nano" value="nano">
+      <label for="nano">Nano</label>
+
+      <button id="vote-submit" type="submit">Vote !</button>
+  </form>
+
+  <script>
+      document.addEventListener('DOMContentLoaded', function() {
+          // disable the submit button by default
+          document.getElementById('vote-submit').disabled = true;
+
+          // listen for changes to the radio buttons
+          var radioButtons = document.querySelectorAll('input[type="radio"]');
+          for (var i = 0; i < radioButtons.length; i++) {
+              radioButtons[i].addEventListener('change', function() {
+                  // enable the submit button if at least one radio button is checked
+                  var checkedRadios = document.querySelectorAll('input[type="radio"]:checked');
+                  if (checkedRadios.length > 0) {
+                      document.getElementById('vote-submit').disabled = false;
+                  } else {
+                      document.getElementById('vote-submit').disabled = true;
+                  }
+              });
+          }
+      });
+  </script>
+
+  {% endblock %}
